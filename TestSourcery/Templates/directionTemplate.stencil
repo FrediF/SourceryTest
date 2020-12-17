@@ -1,0 +1,11 @@
+//
+//  Copyright © 2020 taschenentwickler. All rights reserved.
+//
+
+{% for enum in types.implementing.Hans|enum %}
+extension {{ enum.name }} {
+    static let allCases: [{{ enum.name }}] = [
+    {% for case in enum.cases %}  .{{ case.name }},
+    {% endfor %}]
+}
+{% endfor %}

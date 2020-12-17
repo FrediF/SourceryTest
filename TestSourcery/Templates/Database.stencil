@@ -1,0 +1,58 @@
+//
+//  Copyright © 2020 taschenentwickler. All rights reserved.
+//
+import Foundation
+import CoreData
+
+{% for struct in types.implementing.Value %}
+@objc({{struct.name}})
+public final class {{struct.name}}ManagedObject: NSManagedObject {
+	{% for var in struct.storedVariables %}
+	@NSManaged var {{var.name}}: {{var.typeName}}
+	{% endfor %}
+}
+
+extension {{struct.name}}ManagedObject: ManagedObject {
+	typealias AnyValue = {{struct.name}}
+
+	var value: AnyValue {
+		{{struct.name}}(
+		{% for var in struct.storedVariables %}
+		{{var.name}}: {{var.name}}{% if not forloop.last %},{% endif %}
+		{% endfor %}
+		)
+	}
+
+	convenience init(value: AnyValue, context: NSManagedObjectContext) {
+		self.init(context: context)
+		{% for var in struct.storedVariables %}
+		self.{{var.name}} = value.{{var.name}}
+		{% endfor %}
+	}
+
+	func update(from value: AnyValue) throws {
+		guard id == value.id else { throw ManagedObjectError.attributeShouldBeUnique("id") }
+		self.content = value.content
+	}
+}
+
+extension {{struct.name}}ManagedObject: EntityDescribable {
+	
+	static var entityDescription: NSEntityDescription {
+		let entity = NSEntityDescription()
+		entity.name = "{{struct.name}}"
+		entity.managedObjectClassName = "{{struct.name}}"
+
+		entity.properties = [
+			{% for var in struct.storedVariables %}
+			NSAttributeDescription.init(name: "{{var.name}}", attributeType: {{ var.annotations.attributeType }}, defaultValue: {% if var.annoations.defaultValue == null %}""{% else %}{{var.annoations.defaultValue}}{% endif %}){% if not forloop.last %},{% endif %}
+			{% endfor %}
+		]
+
+		entity.indexes = []
+		return entity
+	}
+
+}
+{% endfor %}
+
