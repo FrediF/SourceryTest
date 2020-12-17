@@ -1,0 +1,10 @@
+sources:
+- TestSourcery
+templates:
+- Templates
+output: 
+  path: TestSourcery/Generated
+  link: 
+    project: TestSourcery.xcodeproj
+    target: TestSourcery
+    group: TestSourcery/Generated

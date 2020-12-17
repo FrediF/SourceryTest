@@ -63,7 +63,7 @@
 		329DFDE8258B71C3002EDE39 /* TestDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDirection.swift; sourceTree = "<group>"; };
 		329DFE40258B77E8002EDE39 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		FR_177059082442 /* directionTemplate.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = directionTemplate.generated.swift; sourceTree = "<group>"; };
-		FR_622669598311 /* Database.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; lastKnownFileType = sourcecode.swift; name = Database.generated.swift; path = Database.generated.swift; sourceTree = "<group>"; };
+		FR_622669598311 /* Database.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Database.generated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,7 +313,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sourcery\n";
+			shellScript = "sourcery --config ./sourcery.yml\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
