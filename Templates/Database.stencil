@@ -32,7 +32,11 @@ extension {{struct.name}}ManagedObject: ManagedObject {
 
 	func update(from value: AnyValue) throws {
 		guard id == value.id else { throw ManagedObjectError.attributeShouldBeUnique("id") }
-		self.content = value.content
+		{% for var in struct.storedVariables %}
+		{% if not var.name == "id" %}
+		self.{{var.name}} = value.{{var.name}}
+		{% endif %}
+		{% endfor %}
 	}
 }
 
